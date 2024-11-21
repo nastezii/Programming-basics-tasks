@@ -42,16 +42,32 @@ int[] WaterColumns(int[] array, int waterLevel)
     return waterColumns;
 }
 
-int GetMaxWaterArea(int[] array)
+int GetMaxWaterArea(int[] array1, int[] array2)
 {
-    int area = 0;
-    for (int i = 0; i < array.Length; i++)
-    {
-        if (array[i] <= 0) { area = 0; }
-        else { area++; }
+    int[] waterAreas = new int[array1.Length];
+    for (int i = 0; i < array1.Length - 1; i++ )
+    {
+        if (array1[i] > 0 )
+        {
+            int area = 0;
+            int j = 0;
+            while (array1[i] == array1[i+j+1] && array1[i] > array2[i] )
+            {
+                area++;
+                j++;
+            }
+            waterAreas[i] = area;
+        }
+
+        else
+        {
+            waterAreas[i] = 0;
+        }
     }
-    return area;
+    int max = waterAreas.Max();
+    return max;
 }
+Console.WriteLine($"Surface area of ​​the largest water reservoir:{GetMaxWaterArea(waterColumns, shiftedArray)}");
 PrintBackView(shiftedArray, waterLevel);
 
 void PrintBackView(int[] array, int waterLevel)
