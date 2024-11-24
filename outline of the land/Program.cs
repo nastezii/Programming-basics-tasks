@@ -32,42 +32,30 @@ int[] WaterColumns(int[] array, int waterLevel)
     {
         if (array[i] <= waterLevel)
         {
-            waterColumns[i] = 0;
+            waterColumns[i] = waterLevel - array[i];
         }
         else
         {
-            waterColumns[i] = array[i] - waterLevel;
-        }
+            waterColumns[i] = 0;
+        }         
     }
     return waterColumns;
 }
 
-int GetMaxWaterArea(int[] array1, int[] array2)
+int GetMaxWaterArea(int[] array)
 {
-    int[] waterAreas = new int[array1.Length];
-    for (int i = 0; i < array1.Length - 1; i++ )
-    {
-        if (array1[i] > 0 )
-        {
-            int area = 0;
-            int j = 0;
-            while (array1[i] == array1[i+j+1] && array1[i] > array2[i] )
-            {
-                area++;
-                j++;
-            }
-            waterAreas[i] = area;
-        }
-
-        else
-        {
-            waterAreas[i] = 0;
-        }
+    int area = 0;
+    int[] maxArea = new int[array.Length];
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (array[i] <= 0) { area = 0; }
+        else{ area++; }
+        maxArea[i] = area;
     }
-    int max = waterAreas.Max();
-    return max;
+    return maxArea.Max();
 }
-Console.WriteLine($"Surface area of ​​the largest water reservoir:{GetMaxWaterArea(waterColumns, shiftedArray)}");
+Console.WriteLine($"Area of the largest water reservoir: {GetMaxWaterArea(waterColumns)}");
+
 PrintBackView(shiftedArray, waterLevel);
 
 void PrintBackView(int[] array, int waterLevel)
@@ -75,7 +63,7 @@ void PrintBackView(int[] array, int waterLevel)
     int max = array.Max();
     int length = array.Length;
     for (int i = 1; i <= length + 2; i++) { Console.Write("-"); }
-    Console.Write(max + 1);
+    Console.Write(max+1);
     Console.WriteLine();
     for (int i = max; i > waterLevel; i--)
     {
@@ -107,7 +95,7 @@ void PrintBackView(int[] array, int waterLevel)
                 else if (j == length - 1) { Console.Write("N|"); }
                 else { Console.Write("N"); }
             }
-            else
+            else 
             {
                 if (j == 0) { Console.Write("|~"); }
                 else if (j == length - 1) { Console.Write("~|"); }
@@ -119,7 +107,7 @@ void PrintBackView(int[] array, int waterLevel)
             Console.Write($"{i}    (water level)");
             Console.WriteLine();
         }
-        else
+        else 
         {
             Console.Write(i);
             Console.WriteLine();
