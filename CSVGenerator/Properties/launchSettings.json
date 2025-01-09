@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "InventorsFileCreator": {
+      "commandName": "Project",
+      "commandLineArgs": "output.csv"
+    }
+  }
+}
